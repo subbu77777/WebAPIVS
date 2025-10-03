@@ -1,0 +1,40 @@
+name: Manual Message Printer
+
+# -----------------
+# 1. THE DISPATCH TRIGGER
+# -----------------
+on:
+  workflow_dispatch:
+    inputs:
+      # Define the input field for the user to type in
+      custom_message:
+        description: 'The message you want the workflow to print'
+        required: true
+        default: 'Hello from a manual run!'
+        type: string
+
+# -----------------
+# 2. THE JOBS
+# -----------------
+jobs:
+  print_user_input:
+    # Use a standard GitHub-hosted runner
+    runs-on: ubuntu-latest
+    
+    steps:
+      # This step prints the user's input message
+      - name: Print the Custom Message
+        # The 'run' keyword executes shell commands
+        run: |
+          echo "============================================"
+          echo "Workflow Initiated by: ${{ github.actor }}"
+          echo "The user-provided message is:"
+          
+          # Access the input value using the 'github.event.inputs' context
+          echo "-> ${{ github.event.inputs.custom_message }}"
+          
+          echo "============================================"
+
+      # This step prints a standard, non-user-defined message
+      - name: Print a Static Message
+        run: echo "The 'print_user_input' job is complete."
