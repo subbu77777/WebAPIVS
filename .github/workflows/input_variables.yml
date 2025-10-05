@@ -1,0 +1,33 @@
+name: 'Add Two Numbers Manually'
+
+# 1. Define when the workflow runs: manually
+on:
+  # Allows you to run this workflow manually from the Actions tab in GitHub
+  workflow_dispatch:
+    inputs:
+      # First number input
+      number1:
+        description: 'First number to add'
+        required: true
+        type: number
+      # Second number input
+      number2:
+        description: 'Second number to add'
+        required: true
+        type: number
+
+# 2. Define the jobs to run
+jobs:
+  add:
+    # Use the latest Ubuntu runner
+    runs-on: ubuntu-latest
+    
+    # 3. Define the steps for the job
+    steps:
+      - name: Perform Addition
+        id: addition
+        # Use a shell script to read inputs, calculate, and output the result
+        run: |
+          # Print the result to the workflow log
+          echo "The sum of ${{inputs.number1}} and ${{inputs.number2}} is ${{inputs.number1}} + ${{inputs.number2}}."
+      
